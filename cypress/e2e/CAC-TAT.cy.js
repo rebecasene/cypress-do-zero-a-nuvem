@@ -8,6 +8,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   })
   
   it('preenche os campos obrigatórios e envia o formulário', () => {
+    const TextLongo = Cypress._.repeat('Teste', 20)
+
     cy.get('#firstName')
     .should('be.visible')
     .type('Rebeca')
@@ -22,7 +24,7 @@ describe('Central de Atendimento ao Cliente TAT', () => {
 
     cy.get('#open-text-area')
     .should('be.visible')
-    .type('Teste, teste, teste oi.')
+    .type(TextLongo, {delay: 0})
 
     cy.contains('.button', 'Enviar')
     .should('be.visible')
@@ -126,6 +128,27 @@ describe('Central de Atendimento ao Cliente TAT', () => {
     .should('be.visible')
     .type('Rebeca')
     .should('have.value', 'Rebeca')
+    .clear()
+    .should('have.value', '')
+
+    cy.get('#lastName')
+    .should('be.visible')
+    .type('Sene')
+    .should('have.value', 'Sene')
+    .clear()
+    .should('have.value', '')
+
+    cy.get('#email')
+    .should('be.visible')
+    .type('rebecabsene@gmail.com')
+    .should('have.value', 'rebecabsene@gmail.com')
+    .clear()
+    .should('have.value', '')
+
+    cy.get('#phone')
+    .should('be.visible')
+    .type('15998380123')
+    .should('have.value', '15998380123')
     .clear()
     .should('have.value', '')
   })
