@@ -242,4 +242,24 @@ it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', 
       expect(input[0].files[0].name).to.equal('example.json')
     })
 })
+
+it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
+  cy.get('#privacy a')
+  .should('have.attr', 'target', '_blank')
+})
+
+it('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
+  cy.get('#privacy a')
+  .invoke('removeAttr', 'target')
+  .click()
+})
+
+it.only('testa a página da política de privacidade de forma independente', () => {
+    cy.get('#privacy a')
+  .invoke('removeAttr', 'target')
+  .click()
+
+  cy.get('#title')
+  .should('have.text', 'CAC TAT - Política de Privacidade')
+})
 })
