@@ -4,7 +4,8 @@ describe('Central de Atendimento ao Cliente TAT', () => {
   
 })
   it('verifica o título da aplicação', () => {
-    cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
+    cy.title()
+    .should('be.equal', 'Central de Atendimento ao Cliente TAT')
   })
   
   it('preenche os campos obrigatórios e envia o formulário', () => {
@@ -244,22 +245,17 @@ it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', 
 })
 
 it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', () => {
-  cy.get('#privacy a')
+  cy.contains('a', 'Política de Privacidade')
   .should('have.attr', 'target', '_blank')
+  .and('have.attr', 'href', 'privacy.html')
 })
 
 it('acessa a página da política de privacidade removendo o target e então clicando no link', () => {
-  cy.get('#privacy a')
-  .invoke('removeAttr', 'target')
-  .click()
-})
-
-it.only('testa a página da política de privacidade de forma independente', () => {
-    cy.get('#privacy a')
+  cy.contains('a', 'Política de Privacidade')
   .invoke('removeAttr', 'target')
   .click()
 
-  cy.get('#title')
-  .should('have.text', 'CAC TAT - Política de Privacidade')
+  cy.contains('h1', 'CAC TAT - Política de Privacidade')
+  .should('be.visible')
 })
 })
